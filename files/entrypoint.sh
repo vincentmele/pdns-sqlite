@@ -4,7 +4,8 @@ SQLITE_DBPATH=${SQLITE_DBPATH:-/data/pdns.sqlite}
 API_KEY=${API_KEY:-genericapikey}
 MASTER=${MASTER:-no}
 SLAVE=${SLAVE:-yes}
-SLAVE_CYCLE_INTERVAL=${SLAVE_CYCLE_INTERVAL:-60}
+SLAVE_RENOTIFY=${SLAVE_RENOTIFY:-no}
+SLAVE_CYCLE_INTERVAL=${SLAVE_CYCLE_INTERVAL:-10}
 DEFAULT_TTL=${DEFAULT_TTL:-3600}
 DEFAULT_SOA_NAME=${DEFAULT_SOA_NAME:-$(hostname -f)}
 DEFAULT_SOA_MAIL=${DEFAULT_SOA_MAIL}
@@ -32,6 +33,7 @@ OPTIONS+="--gsqlite3-pragma-synchronous=${GSQLITE3_PRAGMA_SYNCHRONOUS} "
 OPTIONS+="--default-ttl=${DEFAULT_TTL} "
 OPTIONS+="--default-soa-name=${DEFAULT_SOA_NAME} "
 OPTIONS+="--allow-axfr-ips=${ALLOW_AXFR_IPS} "
+OPTIONS+="--slave-renotify=${SLAVE_RENOTIFY} "
 OPTIONS+="--slave-cycle-interval=${SLAVE_CYCLE_INTERVAL} "
 OPTIONS+="--webserver-port=8083 "
 OPTIONS+="--daemon=no --no-config "
@@ -108,4 +110,5 @@ fi
 
 # Start PowerDNS
 echo "/usr/sbin/pdns_server ${OPTIONS}"
+echo "hello"
 /usr/sbin/pdns_server ${OPTIONS}
